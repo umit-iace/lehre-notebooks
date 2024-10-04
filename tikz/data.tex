@@ -1,0 +1,32 @@
+\documentclass[convert, border=2pt,outext=.png]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+\usepackage{bm}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows,arrows.meta}
+\usetikzlibrary{decorations,decorations.markings,decorations.pathreplacing,decorations.pathmorphing}
+\usetikzlibrary{calc,math}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes,shapes.symbols}
+
+\tikzstyle{block} = [draw, fill=white, rectangle, minimum height=3em, minimum width=4em]
+\tikzstyle{rblock} = [draw, fill=white, circle, inner sep=0pt,minimum size=1mm]
+\tikzstyle{wobblock} = [fill=white, rectangle, minimum height=3em, minimum width=5em]
+\tikzstyle{nlblock} = [draw, postaction={draw,line width=0.25mm,white}, line width=0.5mm, black, fill=white, rectangle, minimum height=3em, minimum width=5em]
+\tikzstyle{sum} = [draw,circle]
+\tikzstyle{branch} = [circle,inner sep=0pt,minimum size=1mm,fill=black,draw=black]
+\tikzstyle{nvbranch} = [circle,inner sep=0pt,minimum size=1mm,fill=white,draw=white, fill opacity=0, draw opacity=0]
+\tikzstyle{vecBranch} = [circle,inner sep=0pt,minimum size=2mm,fill=black,draw=black]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{coord} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={<-,thin,black,>=latex'}]
+
+\begin{document}
+	\input{twomass.tex}
+\end{document}
