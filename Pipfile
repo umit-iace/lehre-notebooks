@@ -10,6 +10,7 @@ numpy = "*"
 scipy = "*"
 sympy = "*"
 ipympl = "*"
+jupyter-contrib-nbextensions = "*"
 
 [dev-packages]
 

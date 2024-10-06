@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import numpy as np
 
 def nonlinSys(t, x, u, params):
     cs = np.cos(x[0]);

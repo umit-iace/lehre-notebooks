@@ -258,6 +258,9 @@ build-uno/
 *.egg-info/
 
 # autogeneratored files
-tex/tikz/.latexmkrc
-tex/tikz/data.png
-tex/tikz/data.tex
+tikz/.latexmkrc
+tikz/data.png
+tikz/data.tex
+
+# Pipenv lock file
+Pipfile.lock
