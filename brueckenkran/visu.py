@@ -39,18 +39,29 @@ def generateFeedForwardPlot(t, t0, T, yd, N):
 
     fig = plt.figure(figsize=(16, 5))
 
-    gs = gridspec.GridSpec(1, 3, width_ratios=[1, 2, 1], wspace=0.125, hspace=0.075)
+    gs = gridspec.GridSpec(1, 3, width_ratios=[1, 2, 1], wspace=0.075, hspace=0.075)
 
     axes10 = plt.Subplot(fig, gs[0])
     axes20 = plt.Subplot(fig, gs[1])
     axes30 = plt.Subplot(fig, gs[2])
 
     axes10.plot(t, [yr[0](_t) for _t in t], 'C1-')
-    axes30.plot(t, [Dr(_t) for _t in t], 'C1-')
+    axes30.plot(t, [np.rad2deg(thetar(_t)) for _t in t], 'C1-')
 
     axes10.set_xlabel(r'$t$ in \si{\second}')
-    axes20.set_xlabel(r'$z$ in \si{\meter}')
+    axes10.set_ylabel(r'$y_{\text{ref}}$ in \si{\meter}')
+    axes20.set_xlabel(r'$\bm{e}_2$ in \si{\meter}')
+    axes20.grid(True)
+    for tick in axes20.yaxis.get_major_ticks():
+        tick.tick1line.set_visible(False)
+        tick.tick2line.set_visible(False)
+        tick.label1.set_visible(False)
+        tick.label2.set_visible(False)
+
+    axes30.yaxis.set_label_position("right")
+    axes30.yaxis.tick_right()
     axes30.set_xlabel(r'$t$ in \si{\second}')
+    axes30.set_ylabel(r'$\theta_{\text{ref}}$ in \si{\degree}')
 
     axes20.set_xlim(0 - 0.1, 1 + 0.1)
     axes20.set_ylim(-st.l - 2 * st.r, 2 * st.h)
@@ -111,5 +122,5 @@ if __name__ == '__main__':
     yd = 1
     t0 = 0.5
     T = 4
-    N = 10
+    N = 20
     generateFeedForwardPlot(t, t0, T, yd, N)
