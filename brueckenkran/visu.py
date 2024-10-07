@@ -30,6 +30,8 @@ mpl.rcParams["pgf.preamble"] = r"""
 \usepackage{chemformula}
 \usepackage{bm}
 \usepackage[per-mode=symbol]{siunitx}
+\definecolor{blauC}{HTML}{1f77b4}
+\definecolor{orangeC}{HTML}{ff7f0e}
 """
 
 
@@ -45,11 +47,12 @@ def generateFeedForwardPlot(t, t0, T, yd, N):
     axes20 = plt.Subplot(fig, gs[1])
     axes30 = plt.Subplot(fig, gs[2])
 
-    axes10.plot(t, [yr[0](_t) for _t in t], 'C1-')
+    axes10.plot(t, [yr[0](_t) for _t in t], 'C0-')
+    axes10.plot(t, [Dr(_t) for _t in t], 'C1-')
     axes30.plot(t, [np.rad2deg(thetar(_t)) for _t in t], 'C1-')
 
     axes10.set_xlabel(r'$t$ in \si{\second}')
-    axes10.set_ylabel(r'$y_{\text{ref}}$ in \si{\meter}')
+    axes10.set_ylabel(r'\textcolor{orangeC}{$y_{\text{ref}}$ in \si{\meter}}/\textcolor{blauC}{$D_{\text{ref}}$ in \si{\meter}}')
     axes20.set_xlabel(r'$\bm{e}_2$ in \si{\meter}')
     axes20.grid(True)
     for tick in axes20.yaxis.get_major_ticks():
@@ -118,9 +121,9 @@ def generateFeedForwardPlot(t, t0, T, yd, N):
 
 
 if __name__ == '__main__':
-    t = np.linspace(0, 5, 150)
+    t = np.linspace(0, 2.5, 150)
     yd = 1
     t0 = 0.5
-    T = 4
+    T = 2
     N = 20
     generateFeedForwardPlot(t, t0, T, yd, N)
