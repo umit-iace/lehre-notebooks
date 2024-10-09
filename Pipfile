@@ -11,6 +11,7 @@ scipy = "*"
 sympy = "*"
 ipympl = "*"
 jupyter-contrib-nbextensions = "*"
+nbstripout = "*"
 
 [dev-packages]
 
