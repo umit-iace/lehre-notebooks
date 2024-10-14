@@ -1,0 +1,26 @@
+\begin{tikzpicture}[auto, >=latex']
+	\draw[decoration={aspect=0.3,segment length=3mm,amplitude=10mm,coilup,segment length=5pt},decorate,double=gray!90,double distance=3pt] (0,1.5) -- (0,5.3);
+	\node[cylinder,fill=gray!10,rotate=270,draw,minimum height=4.0cm,minimum width=1.8cm,anchor=east] at (0,1.4) (A) {};
+	\draw[densely dashed] (-0.9,5.27) arc (180:0:0.9cm and -0.13cm);
+	\draw[decoration={aspect=0.3,segment length=3mm,amplitude=10mm,coildown,segment length=5pt},decorate,double=gray!90,double distance=3pt] (0,1.5) -- (0,5.3);
+
+	\draw (-0.5,0) arc (180:360:0.5 and 0.5);
+    \draw[dashed] (-0.5,0) arc (180:0:0.5 and 0.5);
+    \draw (0,0.5) arc (90:270:0.5 and 0.5);
+    \draw[dashed] (0,0.5) arc (90:-90:0.5 and 0.5);
+    \draw (0,0) circle (0.5cm);
+    \shade[ball color=blue!10!white,opacity=0.60] (0,0) circle (0.5);
+    \draw[fill=black] (0,0) circle (0.025);
+
+	\draw[-*, thick] (0.9, 1.65) -- (1.5,1.65) -- (1.5, 3.75);
+    \draw[*->, thick] (1.5, 4) -- (1.5, 5.25) node [right] {$i$};
+    \draw[-, thick] (1.5, 4.5) -- (1.5, 5.75) -- (0,5.75) -- (0,5.3) ;
+    \draw[->, thick] (1.6, 3.5) to [bend left=-45] node [right] {$u$} (1.6, 4.25);
+
+    \draw[->, thick] (0, 0.5) -- (0, 1) node [right] {$F$};
+
+    \draw[->, thick] (1.5, -0.5) -- node [right] {$y$} (1.5, 0);
+    \draw[-, thick] (1.25,-0.5) -- (1.75, -0.5);
+    \draw[dashed] (0, 0) -- (1.5, 0);
+
+\end{tikzpicture}
