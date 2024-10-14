@@ -1,0 +1,37 @@
+\begin{tikzpicture}[auto, >=latex']
+
+    \draw[black, thick] (12.5, 2) -- (12.5, 9.4);
+    \draw[black, thick] (18.5, 3.0) -- (18.5, 4);
+    \draw[black, thick] (17.2, 5.5) -- (17.2, 7.5);
+
+    \draw[fill=lightgray] (12.5,10.5) rectangle (25,9.5);
+    \draw[fill=lightgray, even odd rule] (18.5,5) circle (0.25) circle (0.125);
+
+    \draw[color=white] (12.5,9.75) -- (25,9.75);
+    % Kabel
+    \draw[double distance=0.4] (17.7,8) -- ++(0.8,-3);
+    \draw[double] (18.5,5) -- +(3,-1) (18.5,5) -- +(-3,-1);
+    \draw[fill=white] (17.2,8) circle (0.5);
+    \draw[fill=white] (17.825,10.125) circle (0.375) +(-1.25,0) circle (0.375);
+    \draw[rounded corners, fill=lightgray] (17.2,7.5) -- (18.2,10.375) -- ++(-2,0) -- cycle;
+    \draw (17.2,8) circle (0.07);
+    \draw (17.825,10.125) circle (0.07) +(-1.25,0) circle (0.07);
+    % last
+    \draw[fill=gray] (15.5,4.05) rectangle (21.5,3.45) node[pos=.5, xshift=-3ex, yshift=-2ex] {\Huge $m$};
+    \draw[fill=red!75] (17,4.06) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (17.5,4.06) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (18,4.06) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (18.5,4.06) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (19,4.06) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (19.5,4.06) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (17.5,4.37) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (18,4.37) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (18.5,4.37) rectangle +(0.5,0.3);
+    \draw[fill=red!75] (19,4.37) rectangle +(0.5,0.3);
+
+    \draw[->, very thick] (17.2,5.5) to [bend right=20] node [above, xshift=-0.75ex,yshift=1ex] {\Huge $\theta$} (18.3,5.85);
+    \draw[->, very thick] (12.5, 3.15) -- node [below] {\Huge $y$} (18.5, 3.15);
+    \draw[->, very thick] (12.5, 7.25) -- node [below] {\Huge $D$} (17.2, 7.25);
+    \draw[->, very thick] (18, 9.25) -- node [below] {\Huge $u$} (20, 9.25);
+    \draw[->, very thick] (24, 7.25) -- node [right] {\Huge $g$} (24, 5.25);
+\end{tikzpicture}

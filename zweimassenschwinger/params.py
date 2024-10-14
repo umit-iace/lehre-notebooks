@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-m = 10.0            # kg
-M = 10.0            # kg
-k = 1e4             # N/m
-d = 0               # N*s/m
+m = 26.9            # kg
+M = 5.4             # kg
+k = 120000          # N/m
+d = 60              # N*s/m
 
-beamHeight = 0.02   # m
-gantryHeight = 0.5  # m
-gantryLength = 2.0  # m
-cartLength = 0.2    # m
-cartHeight = 0.05   # m
+b1 = 0.75
+b2 = 0.1275
+h = 0.02
