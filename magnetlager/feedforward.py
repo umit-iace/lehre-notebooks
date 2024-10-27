@@ -3,7 +3,7 @@ import params as st
 import sympy as sp
 import numpy as np
 
-def feedForwardRamp(t0, T, yd, y0):
+def feedForwardStep(t0, T, yd, y0):
     uIn = lambda t: y0 + yd if t0 < t < t0 + T else y0
     return uIn
 
