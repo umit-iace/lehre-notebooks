@@ -3,7 +3,7 @@ import params as st
 import sympy as sp
 import numpy as np
 
-def feedForwardRamp(t0, T, yd):
+def feedForwardTrapz(t0, T, yd):
     uIn = lambda t: yd if t0 < t < t0 + T else 0
     return uIn
 
@@ -32,7 +32,13 @@ def feedForwardLinFlat(t0, T, yd):
 
     uIn = lambda t: st.M * st.l / st.g * yr[4](t) + (st.M + st.m) * yr[2](t)
 
-    thetar = lambda t: - yr[2](t) / st.g
-    Dr = lambda t: yr[0](t) + st.l / st.g * yr[2](t)
+    thetar = np.array([
+        lambda t: - yr[2](t) / st.g,
+        lambda t: - yr[3](t) / st.g,
+    ])
+    Dr = np.array([
+        lambda t: yr[0](t) + st.l / st.g * yr[2](t),
+        lambda t: yr[1](t) + st.l / st.g * yr[3](t)
+    ])
     
     return yr, uIn, Dr, thetar

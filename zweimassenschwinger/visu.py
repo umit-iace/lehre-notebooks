@@ -33,16 +33,15 @@ mpl.rcParams["pgf.preamble"] = r"""
 
 
 def generateTrapezPlot():
-    aMax = 1.0
-    vMax = 1.0
+    aMax = 1
+    vMax = 1
     yT = 2
-    t1 = aMax / vMax
+
+    t1 = vMax / aMax
     y1 = aMax * t1 ** 2 / 2
+
     t2 = (yT - 2 * y1) / vMax + t1
-    t3 = (yT - 2 * y1) / vMax + 2 * t1
-    s1 = t1 ** 2 / 2
-    s2 = yT - t1 ** 2 / 2
-    v1 = vMax
+    t3 = t1 + t2
 
     _t1 = np.linspace(0, t1, 101)
 
@@ -84,8 +83,8 @@ def generateTrapezPlot():
     ax1.set_yticklabels([r"$-a_{\text{max}}$", r"$0$", r"$a_{\text{max}}$"])
     ax2.set_yticks([0, vMax])
     ax2.set_yticklabels([r"$0$", r"$v_{\text{max}}$"])
-    ax3.set_yticks([0, yT])
-    ax3.set_yticklabels([r"$0$", r"$y_T$"])
+    ax3.set_yticks([0, y1, yT-y1, yT])
+    ax3.set_yticklabels([r"$0$", r"$y_1$", r"$y_2$", r"$y_T$"])
 
     fig.add_subplot(ax1)
     fig.add_subplot(ax2)
@@ -205,4 +204,4 @@ def generateSCurvePlot():
 
 if __name__ == '__main__':
     generateTrapezPlot()
-    generateSCurvePlot()
+    # generateSCurvePlot()

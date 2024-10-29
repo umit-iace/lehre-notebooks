@@ -48,8 +48,8 @@ def generateFeedForwardPlot(t, t0, T, yd, N):
     axes30 = plt.Subplot(fig, gs[2])
 
     axes10.plot(t, [yr[0](_t) for _t in t], 'C0-')
-    axes10.plot(t, [Dr(_t) for _t in t], 'C1-')
-    axes30.plot(t, [np.rad2deg(thetar(_t)) for _t in t], 'C1-')
+    axes10.plot(t, [Dr[0](_t) for _t in t], 'C1-')
+    axes30.plot(t, [np.rad2deg(thetar[0](_t)) for _t in t], 'C1-')
 
     axes10.set_xlabel(r'$t$ in \si{\second}')
     axes10.set_ylabel(r'\textcolor{orangeC}{$y_{\text{ref}}$ in \si{\meter}}/\textcolor{blauC}{$D_{\text{ref}}$ in \si{\meter}}')
@@ -78,18 +78,18 @@ def generateFeedForwardPlot(t, t0, T, yd, N):
         curCol = cmap.to_rgba(j / (N - 1) * (c[-1] - c[0]) + c[0])
 
         wagen = mpl.patches.Rectangle(
-                xy=(Dr(_t) - st.b/2, 0),
+                xy=(Dr[0](_t) - st.b/2, 0),
                 width=st.b,
                 height=st.h,
                 color=curCol, zorder=j + 1)
         last = mpl.patches.Circle(
-                xy=(yr[0](_t), -np.cos(thetar(_t)) * st.l),
+                xy=(yr[0](_t), -np.cos(thetar[0](_t)) * st.l),
                 radius=st.r,
                 color=curCol,
                 zorder=j + 1)
         seil = Line2D(
-                [Dr(_t), yr[0](_t)],
-                [0, -np.cos(thetar(_t)) * st.l],
+                [Dr[0](_t), yr[0](_t)],
+                [0, -np.cos(thetar[0](_t)) * st.l],
                 color=curCol,
                 linewidth=2,
                 zorder=j + 1)
