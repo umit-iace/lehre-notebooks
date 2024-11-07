@@ -9,5 +9,7 @@ Lehrveranstaltungen
 
 * Advanced Control
 
-  * Zweimassenschwinger
-  * Brückenkran
+  * Zweimassenschwinger (Modellierung/Steuerung/Regelung - lineares Modell)
+  * Brückenkran (Modellierung/Steuerung/Regelung/Beobachter - lineares/nichtlineares Modell)
+  * Magnetlager (Modellierung/Steuerung/Regelung/Beobachter - nichtlineares Modell)
+  * Klimatisierung (Parameteridentifikation)
