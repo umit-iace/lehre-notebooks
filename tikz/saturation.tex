@@ -1,0 +1,28 @@
+\begin{tikzpicture}[auto, >=latex']
+
+	\node [block, minimum width=6em, fill=yellow!20] (sollgroesse)
+	{\begin{tabular}{c}Sollgrößen-\\generator\end{tabular}};
+	\node [block, minimum width=6em, fill=green!20, node distance=1.5cm, right=of sollgroesse] (steuerung) {Steuerung};
+	\node [sum, node distance=1cm, right=of $(steuerung.south east)!0.175!(steuerung.north east)$] (sumerror) {};
+    \node [block, minimum width=6em, fill=red!20, node distance=1.5cm, right=of sumerror] (regler) {PI-Regler};
+    \node [sum, node distance=1cm, right=of regler] (sumFF) {};
+    \node [saturation, minimum width=6em, minimum height=3em, node distance=1cm, right=of sumFF] (sat) {};
+	\node [block, minimum width=6em, fill=blue!20, node distance=1cm, right=of sat] (regelstrecke)
+        {Strecke};
+	\node [branch, node distance=1cm, right=of regelstrecke] (bx) {};
+	\node [output, node distance=1cm, right= of bx] (x) {};
+	\node [coord, node distance=1cm, below=of regler] (rueckfuehrung) {};
+
+    \draw [->] (sollgroesse) -- node [above] {$\bm{w}\vphantom{_{\mathrm{R}}}$} (steuerung);
+    \draw [->] ($(steuerung.south east)!0.175!(steuerung.north east)$) -- node [above] {$y_{\mathrm{ref}}$} (sumerror);
+    \draw [->] (sumerror) -- node [above, ] {$-\tilde{y}\vphantom{_{\mathrm{R}}}$}
+	(regler);
+    \draw [->] (regler) -- node [above] {$\tilde{u}\vphantom{_{\mathrm{R}}}$} (sumFF);
+    \draw [->] (sumFF) -- node [above] {$u\vphantom{_{\mathrm{R}}}$} (sat);
+    \draw [->] (sat) -- (regelstrecke);
+    \draw [-] (regelstrecke) -- (bx) node [above] {$y\vphantom{_{\mathrm{R}}}$};
+	\draw [->] (bx) -- (x);
+	\draw [-] (bx) |- (rueckfuehrung);
+	\draw [->] (rueckfuehrung) -| node[right, yshift=1.2cm] {$-$} (sumerror);
+    \draw [->] ($(steuerung.south east)!0.825!(steuerung.north east)$) node [above, xshift=38.01ex] {$u_{\mathrm{ref}}$} -| (sumFF);
+\end{tikzpicture}

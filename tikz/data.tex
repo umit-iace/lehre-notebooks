@@ -31,6 +31,28 @@
 \tikzstyle{coord} = [coordinate]
 \tikzstyle{pinstyle} = [pin edge={<-,thin,black,>=latex'}]
 
+\tikzset{
+  saturation/.style={%
+    draw,
+    double distance=1mm,
+    label={},
+    path picture={
+      % Get the width and height of the path picture node
+      \pgfpointdiff{\pgfpointanchor{path picture bounding box}{north east}}%
+        {\pgfpointanchor{path picture bounding box}{south west}}
+      \pgfgetlastxy\x\y
+      % Scale the x and y vectors so that the range
+      % -1 to 1 is slightly shorter than the size of the node
+      \tikzset{x=\x*.4, y=\y*.4}
+      %
+      % Draw annotation
+      \draw[line width=0.25mm] (-1,0) -- (1,0) (0,-1) -- (0,1);
+      \draw[line width=0.25mm] (-1,-.7) -- (-.7,-.7) -- (.7,.7) -- (1,.7);
+    }
+  },
+}
+
+
 \makeatletter
 \pgfdeclaredecoration{coilup}{coil}
 {
@@ -115,5 +137,6 @@
 	%\input{crane.tex}
     %\input{magBall.tex}
     %\input{hvac.tex}
-    \input{smith.tex}
+    %\input{smith.tex}
+    %\input{saturation.tex}
 \end{document}
