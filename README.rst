@@ -13,3 +13,7 @@ Lehrveranstaltungen
   * Brückenkran (Modellierung/Steuerung/Regelung/Beobachter - lineares/nichtlineares Modell)
   * Magnetlager (Modellierung/Steuerung/Regelung/Beobachter - nichtlineares Modell)
   * Klimatisierung (Parameteridentifikation)
+  * alggemein:
+
+    - Stellgrößenbeschränkung
+    - Smith-Prädiktor
