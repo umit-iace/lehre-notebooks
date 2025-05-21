@@ -264,3 +264,9 @@ tikz/data.tex
 
 # Pipenv lock file
 Pipfile.lock
+
+# uv
+uv.lock
+
+# Jupyter
+.jupyter_ystore.db
