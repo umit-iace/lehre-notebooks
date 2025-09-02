@@ -270,3 +270,6 @@ uv.lock
 
 # Jupyter
 .jupyter_ystore.db
+
+# tup
+.tup/
