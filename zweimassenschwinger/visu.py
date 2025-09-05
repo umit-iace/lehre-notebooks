@@ -32,15 +32,15 @@ mpl.rcParams["pgf.preamble"] = r"""
 """
 
 
-def generateTrapezPlot():
+def generateTrapezPlots():
     aMax = 1
     vMax = 1
-    yT = 2
+    y3 = 2
 
     t1 = vMax / aMax
     y1 = aMax * t1 ** 2 / 2
 
-    t2 = (yT - 2 * y1) / vMax + t1
+    t2 = (y3 - 2 * y1) / vMax + t1
     t3 = t1 + t2
 
     _t1 = np.linspace(0, t1, 101)
@@ -53,6 +53,52 @@ def generateTrapezPlot():
     ax2 = plt.Subplot(fig, gs[1], sharex=ax1)
     ax3 = plt.Subplot(fig, gs[2], sharex=ax1)
 
+    ax1.grid(True)
+    ax2.grid(True)
+    ax3.grid(True)
+
+    [label.set_visible(False) for label in ax1.get_xticklabels()]
+    [label.set_visible(False) for label in ax2.get_xticklabels()]
+
+    ax3.set_xlim(0, t3)
+    ax3.set_xticks([0, t1, t2, t3])
+    ax3.set_xticklabels([r"$0$", r"$t_1$", r"$t_2$", r"$t_3$"])
+
+    ax1.set_ylim([-aMax - np.abs(aMax) * 0.1, aMax + np.abs(aMax) * 0.1])
+    ax1.set_yticks([-aMax, 0, aMax])
+    ax1.set_yticklabels([r"$-a_{\text{max}}$", r"$0$", r"$a_{\text{max}}$"])
+    ax2.set_ylim([-np.abs(vMax) * 0.1, vMax + np.abs(aMax) * 0.1])
+    ax2.set_yticks([0, vMax])
+    ax2.set_yticklabels([r"$0$", r"$v_{\text{max}}$"])
+    ax3.set_ylim([-np.abs(y3) * 0.1, y3 + np.abs(y3) * 0.1])
+    ax3.set_yticks([0, y1, y3 - y1, y3])
+    ax3.set_yticklabels([r"$0$", r"$y_1$", r"$y_2$", r"$y_3$"])
+
+    fig.add_subplot(ax1)
+    fig.add_subplot(ax2)
+    fig.add_subplot(ax3)
+
+    ax1.plot([0, t1], [aMax, aMax], 'C0')
+
+    ax2.plot([0, t1], [0, vMax], 'C0')
+
+    ax3.plot(_t1, _t1 ** 2 / 2 * aMax, 'C0')
+
+    fig.savefig('trapez1.pdf',
+                format='pdf', dpi=600, bbox_inches='tight', transparent=True)
+
+    ax1.plot([0, t1], [aMax, aMax], 'C0')
+    ax1.plot([t1, t1], [aMax, 0], 'C0')
+    ax1.plot([t1, t2], [0, 0], 'C0')
+
+    ax2.plot([0, t1], [0, vMax], 'C0')
+    ax2.plot([t1, t2] ,[vMax, vMax], 'C0')
+
+    ax3.plot(_t1, _t1 ** 2 / 2 * aMax, 'C0')
+    ax3.plot([t1, t2], [aMax* (t1 ** 2.0) / 2, (t1 **2 ) / 2 * aMax + (t2 - t1) * vMax], 'C0')
+
+    fig.savefig('trapez2.pdf',
+                format='pdf', dpi=600, bbox_inches='tight', transparent=True)
 
     ax1.plot([0, t1], [aMax, aMax], 'C0')
     ax1.plot([t1, t1], [aMax, 0], 'C0')
@@ -68,37 +114,16 @@ def generateTrapezPlot():
     ax3.plot([t1, t2], [aMax* (t1 ** 2.0) / 2, (t1 **2 ) / 2 * aMax + (t2 - t1) * vMax], 'C0')
     ax3.plot(t2 + _t1, aMax*(t1 ** 2.0) / 2 + (t2 - t1 + _t1) * vMax - aMax * _t1 ** 2 / 2, 'C0')
 
-    ax1.grid(True)
-    ax2.grid(True)
-    ax3.grid(True)
-
-    [label.set_visible(False) for label in ax1.get_xticklabels()]
-    [label.set_visible(False) for label in ax2.get_xticklabels()]
-
-    ax3.set_xlim(0, t3)
-    ax3.set_xticks([0, t1, t2, t3])
-    ax3.set_xticklabels([r"$0$", r"$t_1$", r"$t_2$", r"$t_3$"])
-
-    ax1.set_yticks([-aMax, 0, aMax])
-    ax1.set_yticklabels([r"$-a_{\text{max}}$", r"$0$", r"$a_{\text{max}}$"])
-    ax2.set_yticks([0, vMax])
-    ax2.set_yticklabels([r"$0$", r"$v_{\text{max}}$"])
-    ax3.set_yticks([0, y1, yT-y1, yT])
-    ax3.set_yticklabels([r"$0$", r"$y_1$", r"$y_2$", r"$y_T$"])
-
-    fig.add_subplot(ax1)
-    fig.add_subplot(ax2)
-    fig.add_subplot(ax3)
-
-    fig.savefig('trapez.pdf',
+    fig.savefig('trapez3.pdf',
                 format='pdf', dpi=600, bbox_inches='tight', transparent=True)
 
 def generateSCurvePlot():
+    Ts = 0.05
+    T = 50e-6
+
     aMax = 20.0
     vMax = 2.0
     sMax = 0.4
-    Ts = 0.05
-    T = 50e-6
     jMax = aMax / Ts
 
     if sMax == 0:
@@ -203,5 +228,5 @@ def generateSCurvePlot():
 
 
 if __name__ == '__main__':
-    generateTrapezPlot()
+    generateTrapezPlots()
     # generateSCurvePlot()
