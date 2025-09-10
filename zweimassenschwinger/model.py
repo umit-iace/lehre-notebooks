@@ -6,7 +6,7 @@ def linSys(t, x, u, params):
     x2 = x[1]
     x3 = x[2]
     x4 = x[3]
-    d, k, m, M, _, _ = params
+    d, k, m, M, _ = params
 
     dx = np.zeros(4)
     dx[0] = x2
