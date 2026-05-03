@@ -48,3 +48,24 @@ def feedForwardInputShaping(y1R, params):
 
     return uIn
 
+def feedForwardFlach(t0, T, yd, params):
+    d, k, m , M, _ = params
+
+    yr = np.array([
+        lambda t: yd * (70 * (t - t0) ** 9 / T ** 9 - 315 * (t - t0) ** 8 / T ** 8 + 540 * (t - t0) ** 7 / T ** 7 - 420 * (t - t0) ** 6 / T ** 6 + 126 * (t - t0) ** 5 / T ** 5) if t0 <= t <= t0 + T else 0 if t < t0 else yd,
+        lambda t: yd * (630 * (t - t0) ** 8 / T ** 9 - 2520 * (t - t0) ** 7 / T ** 8 + 3780 * (t - t0) ** 6 / T ** 7 - 2520 * (t - t0) ** 5 / T ** 6 + 630 * (t - t0) ** 4 / T ** 5) if t0 < t < t0 + T else 0,
+        lambda t: yd * (5040 * (t - t0) ** 7 / T ** 9 - 17640 * (t - t0) ** 6 / T ** 8 + 22680 * (t - t0) ** 5 / T ** 7 - 12600 * (t - t0) ** 4 / T ** 6 + 2520 * (t - t0) ** 3 / T ** 5) if t0 < t < t0 + T else 0,
+        lambda t: yd * (35280 * (t - t0) ** 6 / T ** 9 - 105840 * (t - t0) ** 5 / T ** 8 + 113400 * (t - t0) ** 4 / T ** 7 - 50400 * (t - t0) ** 3 / T ** 6 + 7560 * (t - t0) ** 2 / T ** 5) if t0 < t < t0 + T else 0,
+        lambda t: yd * (211680 * (t - t0) ** 5 / T ** 9 - 529200 * (t - t0) ** 4 / T ** 8 + 453600 * (t - t0) ** 3 / T ** 7 - 151200 * (t - t0) ** 2 / T ** 6 + 15120 * (t - t0) / T ** 5) if t0 < t < t0 + T else 0,
+    ])
+
+    uIn = lambda t: m * (yr[2](t) + d / k * yr[3](t) + M / k * yr[4](t))
+
+    y1R = np.array([
+        lambda t: yr[0](t) + d / k * yr[1](t) + (m + M) / k * yr[2](t)
+    ])
+    y2R = np.array([
+        lambda t: - m / k * yr[2](t)
+    ])
+    
+    return uIn, y1R, y2R
