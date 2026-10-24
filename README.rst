@@ -17,3 +17,4 @@ Lehrveranstaltungen
 
     - Stellgrößenbeschränkung
     - Smith-Prädiktor
+    - Regulator (Störgrößenkompensation mit Exosystem)
