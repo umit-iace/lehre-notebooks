@@ -187,6 +187,7 @@ TSWLatexianTemp*
 *.sb*
 *.sym*
 *.ip*
+!*.ipynb
 *.inp*
 
 # Simulink BuR

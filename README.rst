@@ -12,9 +12,9 @@ Lehrveranstaltungen
   * Zweimassenschwinger (Modellierung/Steuerung/Regelung - lineares Modell)
   * Brückenkran (Modellierung/Steuerung/Regelung/Beobachter - lineares/nichtlineares Modell)
   * Magnetlager (Modellierung/Steuerung/Regelung/Beobachter - nichtlineares Modell)
+  * Gleichstrommotor (Normalformen/Steuerung/Regelung/Regulator - lineares Modell)
   * Klimatisierung (Parameteridentifikation)
   * allgemein:
 
     - Stellgrößenbeschränkung
     - Smith-Prädiktor
-    - Regulator (Störgrößenkompensation mit Exosystem)
