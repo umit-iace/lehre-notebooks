@@ -1,2 +1,3 @@
 : foreach ./../tikz/*.tikz |> latexmk -pdf -norc -jobname=%B ./../tikz/tikzImages.tex |> %B.pdf %B.log %B.aux %B.fls %B.fdb_latexmk
 : foreach *.pdf |> magick -density 600 %f %o |> %B.png
+: foreach *.pdf |> magick -density 600 %f -background white -flatten -resize 220x160 %o |> %B_thumb.png
