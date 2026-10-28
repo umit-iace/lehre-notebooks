@@ -1,0 +1,27 @@
+\begin{tikzpicture}[auto, >=latex']
+    % Tank 1
+    \fill[blue!20] (0, 2.6) rectangle (1.6, 3.9);
+    \draw[thick] (0, 4.8) -- (0, 2.6) -- (0.7, 2.6);
+    \draw[thick] (0.9, 2.6) -- (1.6, 2.6) -- (1.6, 4.8);
+    \node at (0.8, 4.4) {$A_1$};
+    % Tank 2
+    \fill[blue!20] (1.2, 0) rectangle (2.8, 1.6);
+    \draw[thick] (1.2, 2.2) -- (1.2, 0) -- (1.9, 0);
+    \draw[thick] (2.1, 0) -- (2.8, 0) -- (2.8, 2.2);
+    \node at (2.4, 1.9) {$A_2$};
+    % Ausfluss
+    \draw[->, thick, blue!60] (0.8, 2.6) -- (0.8, 1.85);
+    \node[left] at (0.8, 2.3) {$a_1$};
+    \draw[->, thick, blue!60] (2.0, 0) -- (2.0, -0.6);
+    \node[left] at (2.0, -0.3) {$a_2$};
+    % Zufluss
+    \draw[thick] (-1.2, 5.3) -- (0.8, 5.3) -- (0.8, 5.0);
+    \draw[->, thick, blue!60] (0.8, 5.0) -- (0.8, 4.65) node[right] {$u$};
+    \draw[thick] (-0.9, 5.3) circle (0.25);
+    \draw[thick] (-1.05, 5.1) -- (-0.65, 5.3) -- (-1.05, 5.5);
+    % Füllstände
+    \draw[<->] (-0.3, 2.6) -- node[left] {$h_1$} (-0.3, 3.9);
+    \draw[dashed] (-0.4, 3.9) -- (0, 3.9);
+    \draw[<->] (3.1, 0) -- node[right] {$h_2$} (3.1, 1.6);
+    \draw[dashed] (2.8, 1.6) -- (3.2, 1.6);
+\end{tikzpicture}

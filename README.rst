@@ -45,6 +45,11 @@ Advanced Control
      - | `Normalformen <gleichstrommotor/Normalformen.ipynb>`__
        | `Regulator <gleichstrommotor/Regulator.ipynb>`__
        | `Vergleich Steuerung <gleichstrommotor/VergleichSteuerung.ipynb>`__
+   * - Zweitank­system
+     - .. image:: images/twoTank_thumb.png
+     - nichtlinear
+     - Normalform, Nulldynamik, E/A-Linearisierung, Steuerung, Regelung
+     - `Regelung <zweitank/Regelung.ipynb>`__
    * - Klimatisierung
      - .. image:: images/hvac_thumb.png
      - –
