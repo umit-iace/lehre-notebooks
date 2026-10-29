@@ -1,27 +1,72 @@
+\tikzset{
+    waterIn/.pic={
+        \fill[cyan!25](-#1, -0.25) rectangle (0.25, 0.25);
+        \draw[line width=1pt](-#1, -0.25) -- (0.25, -0.25) (-#1, 0.25) -- (0.25, 0.25);
+    },
+    waterOut/.pic={
+        \fill[cyan!25](-1.00, -0.25) rectangle (0.25, 0.25);
+        \fill[cyan!25](-1.00, -0.25) rectangle (-0.50, -#1);
+        \draw[dashed, color=gray, line width=1pt] (-0.5, -0.75) arc (0:180:0.25 and -0.125);
+        \draw[color=gray, line width=1pt] (-1, -0.75) arc (180:0:0.25 and 0.125);
+        \draw[line width=1pt](0.25, -0.25) -- (-0.5, -0.25) -- (-0.5, -#1) (0.25, 0.25) -- (-1.00, 0.25) -- (-1.00, -#1);
+    },
+    pumpe/.style={
+        circle,
+        fill=white,
+        draw,
+        thick,
+        minimum size=1cm,
+        path picture={
+        \draw [thick] (path picture bounding box.north) --
+                      (path picture bounding box.east) --
+                      (path picture bounding box.south);
+        },
+    },
+}
 \begin{tikzpicture}[auto, >=latex']
-    % Tank 1
-    \fill[blue!20] (0, 2.6) rectangle (1.6, 3.9);
-    \draw[thick] (0, 4.8) -- (0, 2.6) -- (0.7, 2.6);
-    \draw[thick] (0.9, 2.6) -- (1.6, 2.6) -- (1.6, 4.8);
-    \node at (0.8, 4.4) {$A_1$};
-    % Tank 2
-    \fill[blue!20] (1.2, 0) rectangle (2.8, 1.6);
-    \draw[thick] (1.2, 2.2) -- (1.2, 0) -- (1.9, 0);
-    \draw[thick] (2.1, 0) -- (2.8, 0) -- (2.8, 2.2);
-    \node at (2.4, 1.9) {$A_2$};
-    % Ausfluss
-    \draw[->, thick, blue!60] (0.8, 2.6) -- (0.8, 1.85);
-    \node[left] at (0.8, 2.3) {$a_1$};
-    \draw[->, thick, blue!60] (2.0, 0) -- (2.0, -0.6);
-    \node[left] at (2.0, -0.3) {$a_2$};
-    % Zufluss
-    \draw[thick] (-1.2, 5.3) -- (0.8, 5.3) -- (0.8, 5.0);
-    \draw[->, thick, blue!60] (0.8, 5.0) -- (0.8, 4.65) node[right] {$u$};
-    \draw[thick] (-0.9, 5.3) circle (0.25);
-    \draw[thick] (-1.05, 5.1) -- (-0.65, 5.3) -- (-1.05, 5.5);
-    % Füllstände
-    \draw[<->] (-0.3, 2.6) -- node[left] {$h_1$} (-0.3, 3.9);
-    \draw[dashed] (-0.4, 3.9) -- (0, 3.9);
-    \draw[<->] (3.1, 0) -- node[right] {$h_2$} (3.1, 1.6);
-    \draw[dashed] (2.8, 1.6) -- (3.2, 1.6);
+
+    \begin{scope}
+        \fill[cyan!25] decorate[decoration={random steps, segment length=1mm, amplitude=0.5mm}]{(6, 2.2) -- (0, 2.2)}--(0,0) -- (6, 0) -- cycle;
+        \draw[line width=1pt] (0,0) rectangle (6, 4);
+
+        \coordinate (eingang) at (0, 4.0 - 0.7);
+        \coordinate (ausgang) at (6.0 - 1.0, 0);
+
+        \pic[xshift=-2.5mm + 0.5pt] at (eingang) {waterIn={2.5}};
+        \pic[xshift=2.5mm - 0.5pt, rotate=90] at (ausgang) {waterOut={1.5}};
+        \node at ([shift={(-7.5mm, -7.5mm)}]ausgang) {$a_1$};
+
+        \fill[cyan!25] ([shift={(0.5pt, -2.5mm)}]eingang) parabola (0.3 * 6, 1pt) -- (0.5 * 6, 1pt) parabola[bend at end] ([shift={(0.5pt, 2.5mm)}]eingang);
+
+        \node[pumpe] at (-1.75, 4.0 - 0.7) () {};
+
+        \draw[|->|] (-0.3, 0) -- node[fill=white, inner xsep=0, xshift=2mm] {$h_1$} (-0.3, 2.2);
+        \draw[|-|] (0, 4.3) -- node[fill=white, inner xsep=0, yshift=-2.9mm] {$A_1$} (6, 4.3);
+
+        \draw[->] ([shift={(-32.5mm, 0)}]eingang) node [left] {$u$} --  ([shift={(-27.5mm, 0)}]eingang);
+
+        \draw[->] (11.5, 3.5) -- node [right] {$g$} (11.5, 1.5);
+    \end{scope}
+
+    \begin{scope}[shift={(85mm, -40.5mm)}]
+        \fill[cyan!25] decorate[decoration={random steps, segment length=1mm, amplitude=0.5mm}]{(6, 2.2) -- (0, 2.2)}--(0,0) -- (6, 0) -- cycle;
+        \draw[line width=1pt] (0,0) rectangle (6, 4);
+
+        \coordinate (eingang) at (0, 4.0 - 0.7);
+        \coordinate (ausgang) at (6.0 - 1.0, 0);
+
+        \pic[xshift=-2.5mm + 0.5pt] at (eingang) {waterIn={1.55}};
+        \pic[xshift=2.5mm - 0.5pt, rotate=90] at (ausgang) {waterOut={3.5}};
+        \node at ([shift={(-7.5mm, -7.5mm)}]ausgang) {$a_2$};
+
+        \fill[cyan!25] ([shift={(0.5pt, -2.5mm)}]eingang) parabola (0.3 * 6, 1pt) -- (0.5 * 6, 1pt) parabola[bend at end] ([shift={(0.5pt, 2.5mm)}]eingang);
+
+        \draw[|->|] (-0.3, 0) -- node[fill=white, inner xsep=0, xshift=2mm] {$h_2$} (-0.3, 2.2);
+        \draw[|-|] (0, 4.3) -- node[fill=white, inner xsep=0, yshift=-2.9mm] {$A_2$} (6, 4.3);
+
+        \draw[->] ([shift={(37.5mm, -7.55mm)}]ausgang) -- ([shift={(42.5mm, -7.55mm)}]ausgang) node [right] {$q_2$};
+
+        \draw[->] ([shift={(-20mm, 6mm)}]eingang) -- node [above] {$q_1$} ([shift={(-10mm, 6mm)}]eingang);
+    \end{scope}
+
 \end{tikzpicture}

@@ -48,8 +48,9 @@ Advanced Control
    * - Zweitank­system
      - .. image:: images/twoTank_thumb.png
      - nichtlinear
-     - Normalform, Nulldynamik, E/A-Linearisierung, Steuerung, Regelung
-     - `Regelung <zweitank/Regelung.ipynb>`__
+     - Normalform, Nulldynamik, E/A-Linearisierung, Flachheit, Steuerung, Regelung
+     - | `Vergleich Steuerung <zweitank/VergleichSteuerung.ipynb>`__
+       | `Vergleich Regelung <zweitank/VergleichRegelung.ipynb>`__
    * - Klimatisierung
      - .. image:: images/hvac_thumb.png
      - –
