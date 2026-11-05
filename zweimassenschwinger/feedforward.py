@@ -69,3 +69,89 @@ def feedForwardFlach(t0, T, yd, params):
     ])
     
     return uIn, y1R, y2R
+
+def ruckProfilZeiten(yd, vMax, aMax, jMax):
+    """Zeitoptimales ruckbeschränktes Profil (Double-S) für eine Ruhe-zu-Ruhe-Bewegung.
+
+    Der Ruck ist stückweise konstant (+jMax, 0, -jMax) und hat 7 Segmente:
+
+        1. Ruck +jMax  (Dauer Tj):        Beschleunigung steigt linear an
+        2. Ruck 0      (Dauer Ta - 2 Tj): Beschleunigung konstant (aMax)
+        3. Ruck -jMax  (Dauer Tj):        Beschleunigung fällt auf 0
+        4. Ruck 0      (Dauer Tv):        Geschwindigkeit konstant (vMax)
+        5. Ruck -jMax  (Dauer Tj):        Verzögerung baut sich auf
+        6. Ruck 0      (Dauer Ta - 2 Tj): Verzögerung konstant (-aMax)
+        7. Ruck +jMax  (Dauer Tj):        Verzögerung baut sich ab
+
+    Die Beschleunigung ist damit trapezförmig, die Geschwindigkeit S-förmig.
+    Fallunterscheidungen (Biagiotti/Melchiorri, Trajectory Planning for Automatic Machines):
+      - aMax wird nicht erreicht, wenn vMax * jMax < aMax^2  -> Segmente 2 und 6 entfallen
+      - vMax wird nicht erreicht (kurze Strecke)             -> Segment 4 entfällt,
+        ggf. zusätzlich aMax nicht erreicht
+
+    Rückgabe: Segmentdauern (7 Werte) und Ruck je Segment (7 Werte).
+    """
+    h = np.abs(yd)
+    # Beschleunigungsphase für das Erreichen von vMax
+    if vMax * jMax >= aMax ** 2:
+        Tj = aMax / jMax
+        Ta = Tj + vMax / aMax
+    else:
+        Tj = np.sqrt(vMax / jMax)
+        Ta = 2 * Tj
+    Tv = h / vMax - Ta
+
+    if Tv < 0:
+        # vMax wird nicht erreicht -> keine Phase konstanter Geschwindigkeit
+        Tv = 0
+        Tj = aMax / jMax
+        Ta = (aMax ** 2 / jMax + np.sqrt(aMax ** 4 / jMax ** 2 + 4 * aMax * h)) / (2 * aMax)
+        if Ta < 2 * Tj:
+            # auch aMax wird nicht erreicht -> reines Ruckprofil (h = 2 jMax Tj^3)
+            Tj = (h / (2 * jMax)) ** (1 / 3)
+            Ta = 2 * Tj
+
+    s = np.sign(yd)
+    dauer = np.array([Tj, Ta - 2 * Tj, Tj, Tv, Tj, Ta - 2 * Tj, Tj])
+    ruck = s * jMax * np.array([1, 0, -1, 0, -1, 0, 1])
+    return dauer, ruck
+
+
+def feedForwardRuck(t0, yd, vMax, aMax, jMax, params):
+    """Ruckbeschränkte Steuerung (Double-S) unter Annahme eines steifen Systems (y2 = 0).
+
+    Wie bei feedForwardTrapez gilt u(t) = m * a_r(t). Rückgabe: uIn, yR = [Position,
+    Geschwindigkeit, Beschleunigung, Ruck] (Funktionen von t) und die Gesamtdauer TGes.
+    """
+    _, _, m, _, _ = params
+    dauer, ruck = ruckProfilZeiten(yd, vMax, aMax, jMax)
+
+    # Zustände (Position, Geschwindigkeit, Beschleunigung) zu Segmentbeginn durch exakte Integration
+    tStart = np.concatenate(([0], np.cumsum(dauer)))
+    zust = [np.zeros(3)]
+    for tau, j in zip(dauer, ruck):
+        p, v, a = zust[-1]
+        zust.append(np.array([p + v * tau + a * tau ** 2 / 2 + j * tau ** 3 / 6,
+                              v + a * tau + j * tau ** 2 / 2,
+                              a + j * tau]))
+    TGes = tStart[-1]
+
+    def auswerten(t):
+        t = t - t0
+        if t <= 0:
+            return 0, 0, 0, 0
+        if t >= TGes:
+            return yd, 0, 0, 0
+        i = min(np.searchsorted(tStart, t, side='right') - 1, 6)
+        tau = t - tStart[i]
+        p, v, a = zust[i]
+        j = ruck[i]
+        return (p + v * tau + a * tau ** 2 / 2 + j * tau ** 3 / 6,
+                v + a * tau + j * tau ** 2 / 2,
+                a + j * tau,
+                j)
+
+    yR = [lambda t, n=n: auswerten(t)[n] for n in range(4)]
+    uIn = lambda t: m * yR[2](t)
+
+    return uIn, yR, TGes

@@ -10,3 +10,4 @@ b2 = 0.1275
 h = 0.02
 
 aMax = 10.0
+jMax = 45.0         # m/s^3, Ruckphase aMax / jMax = 0.22 s ~ Periode 2 pi / omega0 der Eigenschwingung
